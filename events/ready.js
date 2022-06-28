@@ -28,10 +28,10 @@ module.exports = {
             logKey: Sequelize.STRING,
             
         });
-        
+
         warAttendance.sync();
         //Log Bot's username and the amount of servers its in to console
-        console.log(`${bot.user.username} is online on ${bot.guilds.cache.size} servers!`);
+        console.log(`${bot.user.username} is online on ${bot.guilds.cache.size} servers! --`);
         
         //Set the Presence of the bot user
         bot.user.setPresence({ activities: [{ name: 'Bobo is currently struggling.'}] });
