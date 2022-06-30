@@ -51,7 +51,7 @@ for (const file of eventFiles) {
 //Command Manager
 bot.on("messageCreate", async message => {
     //Check if author is a bot or the message was sent in dms and return
-    if(message.author.bot) return;
+    
     if(message.channel.type === "dm") return;
 
     //get prefix from config and prepare message so it can be read as a command
