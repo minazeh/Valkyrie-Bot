@@ -44,6 +44,8 @@ module.exports = {
             setTimeout(function(){
                 channel.send('?attendance');
             }, 5000);
+        },{
+            timezone: 'Asia/Singapore'
         });
         
         const recordAttendance15 = cron.schedule('15 22 * * Thursday,Sunday', () => {
@@ -52,32 +54,76 @@ module.exports = {
             setTimeout(function(){
                 channel.send('?attendance');
             }, 5000);
+        },{
+            timezone: 'Asia/Singapore'
         });
         
-        const guildNotice = cron.schedule('0 20 * * Thursday,Sunday', () => {
-
-            const notice = new MessageEmbed()
-            .setTitle('Paradox • Guild Notice')
-            .setThumbnail('https://i.imgur.com/Hbg3dhA.png')
-            .setDescription('Attention Paradox Guild Members')
-            .addField('Notice Details', 'Good evening <@&991240316889858108>!\nPlease be online by **9:30PM GMT+8** for briefing and preparations.\n\nPrepare early and make sure to follow the guides below!\n\n')
-            .setColor('RANDOM')
-            .setImage('https://i.imgur.com/fi2pSK6.jpg')
-            .setImage('https://i.imgur.com/idpQmLo.jpg')
-            .setImage('https://i.imgur.com/TLTS550.jpg')
-            .setFooter({ text: 'Automated Guild Notice by Valkyrie Randgris', iconURL: 'https://i.imgur.com/RQiFqr7.gif' });
+        const removePastSnaps = cron.schedule('*/5 * * * *', () => {
             
-            bot.channels.cache.get('991237873804263516').send({ embeds: [notice] });
-
+            const channelx = bot.channels.cache.get("993540758139322479");
+            
+            channelx.messages.fetch({ limit: 100 }).then(messages => {
+                
+                console.log(`Received ${messages.size} messages`);
+                
+                messages.forEach(msg => {
+                    
+                    msg.embeds.forEach( embed => {
+                        try{
+                            timestamp = embed.fields[2].value.split(':');
+                            if(timestamp[1] < (Date.now() / 1000)){
+                                msg.delete();
+                            }
+                        } catch {
+                            console.log('Error deleting');
+                        }
+                        
+                    })
+                    
+                });
+                
+            });
+            
+            const channelz = bot.channels.cache.get("993474789534605372");
+            
+            channelz.messages.fetch({ limit: 100 }).then(messages => {
+                
+                console.log(`Received ${messages.size} messages`);
+                
+                messages.forEach(msg => {
+                    
+                    msg.embeds.forEach( embed => {
+                        try{
+                            timestamp = embed.fields[3].value.split(':');
+                            if(timestamp[1] < (Date.now() / 1000)){
+                                console.log(embed.title);
+                                msg.delete();
+                            }
+                        } catch {
+                            try{
+                                timestamp = embed.fields[2].value.split(':');
+                                if(timestamp[1] < (Date.now() / 1000)){
+                                    msg.delete();
+                                }
+                            } catch {
+                                console.log('Error deleting');
+                            }
+                        }
+                        
+                    })
+                    
+                });
+                
+            });
+            
+        },{
+            timezone: 'Asia/Singapore'
         });
         
         // When you want to start it, use:
         recordAttendance.start();
         recordAttendance15.start();
-        guildNotice.start();
-        
-        const channel = bot.channels.cache.get('991270269832405043');
-        //channel.send('Started scheduled discord attendance logging.');  
+        //removePastSnaps.start();
         
     }
 }
