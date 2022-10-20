@@ -30,6 +30,7 @@ module.exports = {
         });
         
         warAttendance.sync();
+
         //Log Bot's username and the amount of servers its in to console
         console.log(`${bot.user.username} is online on ${bot.guilds.cache.size} servers!!!`);
         
@@ -39,20 +40,20 @@ module.exports = {
         const cron = require('node-cron');
         
         const recordAttendance = cron.schedule('59 21 * * Thursday,Sunday', () => {
-            const channel = bot.channels.cache.get('991264581345345566');
+            const channel = bot.channels.cache.get('902859931798097970');
             channel.send('Hey! Taking Discord attendance in 5 seconds. <@&991238733556891758>');
             setTimeout(function(){
-                channel.send('?attendance');
+                channel.send('s?attendance');
             }, 5000);
         },{
             timezone: 'Asia/Singapore'
         });
         
         const recordAttendance15 = cron.schedule('15 22 * * Thursday,Sunday', () => {
-            const channel = bot.channels.cache.get('991264581345345566');
+            const channel = bot.channels.cache.get('902859931798097970');
             channel.send('Hey! Taking the second Discord attendance in 5 seconds.');
             setTimeout(function(){
-                channel.send('?attendance');
+                channel.send('s?attendance');
             }, 5000);
         },{
             timezone: 'Asia/Singapore'
@@ -60,7 +61,7 @@ module.exports = {
         
         const removePastSnaps = cron.schedule('*/5 * * * *', () => {
             
-            const channelx = bot.channels.cache.get("993540758139322479");
+            const channelx = bot.channels.cache.get("1027495395342946319");
             
             channelx.messages.fetch({ limit: 100 }).then(messages => {
                 
@@ -84,7 +85,7 @@ module.exports = {
                 
             });
             
-            const channelz = bot.channels.cache.get("993474789534605372");
+            const channelz = bot.channels.cache.get("1027495470383251476");
             
             channelz.messages.fetch({ limit: 100 }).then(messages => {
                 
@@ -123,7 +124,7 @@ module.exports = {
         // When you want to start it, use:
         recordAttendance.start();
         recordAttendance15.start();
-        //removePastSnaps.start();
+        removePastSnaps.start();
         
     }
 }
