@@ -60,7 +60,7 @@ module.exports = {
             //  Set present members
             for (const onlineMember of CHA) {
                 
-                if(onlineMember[1].roles.cache.map(r => r.name).includes("Guild Member")){
+                if(onlineMember[1].roles.cache.map(r => r.name).includes("Active Member")){
                     
                     warAttendance.create({
                         characterName: onlineMember[1].displayName,
@@ -81,7 +81,7 @@ module.exports = {
             let updatedMemberList = filterArray(memberList, CHA);
             for (const offlineMember of updatedMemberList) {
                 
-                if(offlineMember[1].roles.cache.map(r => r.name).includes("Guild Member")){
+                if(offlineMember[1].roles.cache.map(r => r.name).includes("Active Member")){
                     
                     const memberName = offlineMember[1].displayName;
                     const memberStatus = 'Offline';

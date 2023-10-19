@@ -144,4 +144,4 @@ bot.on("messageCreate", async message => {
 });
 
 //Token needed in config.json
-bot.login(process.env.TOKEN);
+bot.login(process.env.BOT_TOKEN);
